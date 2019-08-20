@@ -24,5 +24,5 @@ class Camera(BaseCamera):
         draw = ImageDraw.Draw(img)
         pos = pyautogui.position()
         ax, ay, bx, by = pos[0], pos[1], pos[0]+10, pos[1]+10
-        draw.ellipse((ax,ay,bx,by), fill="yellow")
+        draw.ellipse((ax,ay,bx,by), fill= (255, 0, 102))
         return img

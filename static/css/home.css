@@ -5,3 +5,18 @@ html {
 h1 {
     color: white;
 }
+
+img {
+    max-width: 100%;
+    max-height: 100vh;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.screen {
+    background: #cecece;
+    border: 1px solid #474e5d;
+    border-radius: 1px;
+    overflow: hidden;
+}

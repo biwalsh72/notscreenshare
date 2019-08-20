@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-	return render_template('index.html')
+	return render_template('home.html')
 
 
 def gen(camera):
@@ -23,13 +23,13 @@ def video_feed():
 
 @app.route('/mouse', methods=['POST'])
 def mouse_event():
-	# co-ordinates of browser image event
+	# co-ordinates of image event
 	ex, ey = float(request.form.get('x')), float(request.form.get('y'))
-	# size of browser image
+	# size of image
 	imx, imy = float(request.form.get('X')), float(request.form.get('Y'))
 	# size of desktop
 	dx, dy = pyautogui.size()
-	# co-ordinates of desktop event
+	# coordinates of desktop
 	x, y = dx*(ex/imx), dy*(ey/imy)
 	# mouse event
 	event = request.form.get('type')
