@@ -1,9 +1,13 @@
 import sys
 import pyautogui
 from flask import Flask, render_template, Response, request
+# from flask_socketio import SocketIO
 from camera_desktop import Camera
+from app import routes
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
+# socketio = SocketIO(app)
 
 @app.route('/')
 def index():
