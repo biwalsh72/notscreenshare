@@ -37,6 +37,10 @@ body {
     overflow-y: hidden;
 }
 
+.row {
+    height: 100%;
+}
+
 .chats::-webkit-scrollbar { width: 0.125rem; }
 .chats::-webkit-scrollbar-thumb { background: #CFD8DC; }
 .chats::-webkit-scrollbar-thumb:hover { background: #B0BEC5; }
@@ -46,7 +50,7 @@ body {
 :-ms-input-placeholder { color: #B0BEC5; }
 :-moz-placeholder { color: #B0BEC5; }
 
-#viewport {
+#room-chat {
         height:auto;
         display: flex;
 	    flex: 1;
@@ -55,7 +59,7 @@ body {
         /*right:0;*/
 }
 
-#viewport > .chatbox {
+#room-chat > .chatbox {
     position:relative;
     display:table;
     float: left;
@@ -69,7 +73,7 @@ body {
     overflow: hidden;
 }
 
-#viewport > .chatbox > .chats {
+#room-chat > .chatbox > .chats {
     position: absolute;
     top: 0; left: 0; bottom: 0; right: 0;
     display: table-cell;
@@ -123,7 +127,7 @@ ul > li:after {
 }
 
 .msg.load {
-    background-color: rgba(134, 79, 235, 0.507);
+    background-color: rgb(112, 162, 219);
     border-bottom-left-radius: 0.125rem;
 }
 
@@ -154,7 +158,7 @@ ul > li:after {
 .msg.him > span { left: 0;	 }
 .msg.you > span {	right: 0; }
 .sendBox {
-	position: absolute;
+    position: absolute;
 	bottom: 0;
 	left: 0;
 	width: 100%;
@@ -163,23 +167,27 @@ ul > li:after {
     border-top-color: rgb(94, 93, 95);
 }
 .sendBox input {
-    color: white;
-	font-family: 'Lato', sans-serif;
-	font-size: 0.875rem;
+    color: rgb(177, 177, 177);
+	font-family: 'Roboto', sans-serif;
+	font-size: 1rem;
 	display: block;
 	width: 100%;
-	border: none;
-	padding: 0.75rem 0.75rem;
+    border: none;
+	/*padding: 0.75rem 0.75rem;*/
 	line-height: 0rem;/*0.125rem solid #ECEFF1;*/
-	transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
 }
 input:hover,
 input:focus,
 input:active { 
-	outline: none!important; 
-	border-top: 0.125rem solid rgb(125, 30, 233);
+    outline: none!important;
+    border-top: 0.125rem solid rgb(206, 199, 214);
+    /*color: white;*/
 }
 
+input::placeholder {
+    color: rgb(134, 134, 134);
+}
 /*  LOADING MESSAGE CSS */
 .load .dot {
 	display: inline-block;

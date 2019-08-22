@@ -3,15 +3,18 @@
 
 <head>
     <title>Screen Sharing</title>
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width = device-width, user-scalable=no" />
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 
 <body>
-    
-    <div id="viewport"></div>
+    <div class="container">
+        <div class="row">
+            <div class = "col" id="room-chat"></div>
+        </div>
+    </div>
 
     <!-- <div class="row">
         <div class="col s12">
