@@ -65,6 +65,7 @@ body {
     width: auto;
     margin: 0 !important;
     padding: 0;
+    left: 30rem;
     /*display: flex;
 	flex: 1;
     justify-content: center;*/
@@ -75,7 +76,7 @@ body {
     display:table;
     float: left;
     /*margin: 1rem;*/
-    width: 70rem;
+    width: 71rem;
     height: 100%;
     background-color: #212121;
     border: solid 1px;
@@ -225,7 +226,7 @@ input::placeholder {
 
 #queue {
     position: fixed;
-    width: 27rem;
+    width: 30rem;
     left: 0;
     height: 100%;
     margin: 0 !important;
@@ -233,7 +234,7 @@ input::placeholder {
 
 #friends-list {
     position: fixed;
-    width: 31rem;
+    width: 27rem;
     right: 0;
     bottom: 0;
     height: 80%;
@@ -241,7 +242,8 @@ input::placeholder {
 
 #current-media {
     position: fixed;
-    width: 70.1rem;
+    left: 30rem;
+    width: 71.1rem;
     height: 20%;
     padding: 0;
     margin: 0 !important;
@@ -254,9 +256,10 @@ input::placeholder {
     height: 20%;
     padding: 0;
     margin: 0 !important;
-    width: 31rem;
+    width: 27rem;
 }
 
 .col {
-    /*border: 1px solid white;*/
+    border: 1px solid white;
+    padding: 0 !important;
 }
