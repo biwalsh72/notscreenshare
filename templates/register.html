@@ -2,18 +2,18 @@
 <html>
 
 <head>
-    <title>login</title>
+    <title>Login</title>
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width = device-width, user-scalable=no" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }} ">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }} ">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
 </head>
 
 <body>
     <div class="login-form">
-        <form class="authBox centered active" method="post" action="{{ url_for('login') }}">
+        <form class="authBox centered active" method = "post" action = "{{ url_for('register') }}" autocomplete = "off">
             <div class="authBox-wrapper">
-                <div class="login-title">
+                <div class="register-title">
                     <center>Welcome!</center>
                 </div>
                 <div class="login-block">
@@ -28,15 +28,21 @@
                         <input class="log" type="password" name="password" placeholder="" id="password" required>
                     </div>
                 </div>
-                <span class="login">Want to sign up?</span>
-                <button type="button" class="register-button" value="Register">
-                    <div class="login-content">Register</div>
+                <div>
+                    <h5 class="login-block-text">EMAIL</h5>
+                    <div class=input-wrapper">
+                        <input class="log" type="email" name="email" placeholder="" id="email" required>
+                    </div>
+                </div>
+                <span class="register">Already have an account?</span>
+                <button type="button" class="register-button">
+                    <div class="register-content">Login</div>
                 </button>
             </div>
         </form>
     </div>
-    <button type="submit" class="log-button authBox centered" value="Login">
-        <div class="login-button">Login</div>
+    <button type="submit" class="log-button authBox centered" value="Register">
+        <div class="login-button">Register</div>
     </button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

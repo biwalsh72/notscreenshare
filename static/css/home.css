@@ -71,6 +71,14 @@ body {
     justify-content: center;*/
 }
 
+.centered {
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
 #room-chat > .chatbox {
     position:relative;
     display:table;
@@ -111,6 +119,11 @@ ul > li:after {
     display: table;
     content: '';
     clear: both;
+}
+
+ul > li:hover {
+    transform: translate(0, .4rem);
+    
 }
 
 .msg {
