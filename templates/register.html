@@ -10,8 +10,8 @@
 </head>
 
 <body>
-    <div class="login-form">
-        <form class="authBox centered active" method = "post" action = "{{ url_for('register') }}" autocomplete = "off">
+    
+        <form class="authBox centered active" method="post" action="{{ url_for('register') }}" autocomplete="off">
             <div class="authBox-wrapper">
                 <div class="register-title">
                     <center>Welcome!</center>
@@ -35,15 +35,15 @@
                     </div>
                 </div>
                 <span class="register">Already have an account?</span>
-                <button type="button" class="register-button">
-                    <div class="register-content">Login</div>
-                </button>
+                <a href="{{ url_for('login') }}" class="register-button login-content" value="Login">Login</a>
             </div>
         </form>
-    </div>
-    <button type="submit" class="log-button authBox centered" value="Register">
-        <div class="login-button">Register</div>
-    </button>
+   
+    <form method="post" action="{{ url_for('register') }}" autocomplete="off">
+        <button type="submit" class="log-button authBox centered" value="Register">
+            <div class="login-button">Register</div>
+        </button>
+    </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

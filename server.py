@@ -7,6 +7,8 @@ from camera_desktop import Camera
 from app import routes
 import MySQLdb.cursors
 import re
+import pymysql
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
@@ -14,7 +16,7 @@ app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Kaseygirl_72'
+app.config['MYSQL_PASSWORD'] = 'cena'
 app.config['MYSQL_DB'] = 'userslogin'
 
 mysql = MySQL(app)
@@ -22,27 +24,27 @@ mysql = MySQL(app)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-	msg = ''
+    msg = ''
 
-	if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-		username = request.form['username']
-		password = request.form['password']
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        username = request.form['username']
+        password = request.form['password']
 
-		cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-		cursor.execute(
-			'SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password))
-		account = cursor.fetchone()
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute(
+            'SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password))
+        account = cursor.fetchone()
 
-		if account:
-			session['loggedin'] = True
-			session['id'] = account['id']
-			session['username'] = account['username']
-			return redirect(url_for('home'))
-		else:
-			print('Incorrect username/password')
-			msg = 'Incorrect username/password!'
+        if account:
+            session['loggedin'] = True
+            session['id'] = account['id']
+            session['username'] = account['username']
+            return redirect(url_for('home'))
+        else:
+            print('Incorrect username/password')
+            msg = 'Incorrect username/password!'
 
-	return render_template('login.html', msg=msg)
+    return render_template('login.html', msg=msg)
 
 
 @app.route('/login/logout')
@@ -54,42 +56,46 @@ def logout():
 
     return redirect(url_for('login'))
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-	msg= ''
+    msg = ''
 
-	if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
-		username = request.form['username']
-		password = request.form['password']
-		email = request.form['email']
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
 
-		cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-		cursor.execute('SELECT * FROM accounts WHERE username = %s', (username))
-		account = cursor.fetchone()
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute(
+            'SELECT * FROM accounts WHERE username = %s', (username))
+        account = cursor.fetchone()
 
-		if account:
-			msg = 'Account already exists'
-		elif not re.match(r'[^@]+@[^@]+\.[^@+', email):
-			msg = 'Invalid email address.'
-		elif not re.match(r'[A-Za-z0-9]+', username):
-			msg = 'Username must contain only characters and numbers.'
-		elif not username or not password or not email:
-			msg = 'Please fill out the form.'
-		else:
-			cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, %s)', (username, password, email))
-			mysql.connection.commit()
-			msg = 'Successfully registered.'
-			return redirect(url_for('home'))
+        if account:
+            msg = 'Account already exists'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            msg = 'Invalid email address.'
+        elif not re.match(r'[A-Za-z0-9]+', username):
+            msg = 'Username must contain only characters and numbers.'
+        elif not username or not password or not email:
+            msg = 'Please fill out the form.'
+        else:
+            cursor.execute(
+                'INSERT INTO accounts VALUES (NULL, %s, %s, %s)', (username, password, email))
+            mysql.connection.commit()
+            print('Successfully registered')
+            msg = 'Successfully registered.'
+            # return redirect(url_for('home'))
 
-	elif request.method == 'POST':
+    elif request.method == 'POST':
+        print('2')
+        msg = 'Please fill out the form!'
 
-		msg = 'Please fill out the form!'
-
-	return render_template('register.html', msg=msg)
+    return render_template('register.html', msg=msg)
 
 
 # @app.route('/home/')
-#def index():
+# def index():
 #     return render_template('home.html')
 
 @app.route('/home')
@@ -147,7 +153,6 @@ def keyboard_event():
     else:
         pyautogui.press(event)
     return Response("success")
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', threaded=True, debug=True)

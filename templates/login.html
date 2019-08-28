@@ -10,34 +10,34 @@
 </head>
 
 <body>
-    <div class="login-form">
-        <form class="authBox centered active" method="post" action="{{ url_for('login') }}">
-            <div class="authBox-wrapper">
-                <div class="login-title">
-                    <center>Welcome!</center>
-                </div>
-                <div class="login-block">
-                    <h5 class="login-block-text">USERNAME</h5>
-                    <div class=input-wrapper">
-                        <input class="log" type="text" name="username" placeholder="" id="username" required>
-                    </div>
-                </div>
-                <div>
-                    <h5 class="login-block-text">PASSWORD</h5>
-                    <div class=input-wrapper">
-                        <input class="log" type="password" name="password" placeholder="" id="password" required>
-                    </div>
-                </div>
-                <span class="login">Want to sign up?</span>
-                <button type="button" class="register-button" value="Register">
-                    <div class="login-content">Register</div>
-                </button>
+
+    <form class="authBox centered active" method="post" action="{{ url_for('login') }}">
+        <div class="authBox-wrapper">
+            <div class="login-title">
+                <center>Welcome!</center>
             </div>
-        </form>
-    </div>
-    <button type="submit" class="log-button authBox centered" value="Login">
-        <div class="login-button">Login</div>
-    </button>
+            <div class="login-block">
+                <h5 class="login-block-text">USERNAME</h5>
+                <div class=input-wrapper">
+                    <input class="log" type="text" name="username" placeholder="" id="username" required>
+                </div>
+            </div>
+            <div>
+                <h5 class="login-block-text">PASSWORD</h5>
+                <div class=input-wrapper">
+                    <input class="log" type="password" name="password" placeholder="" id="password" required>
+                </div>
+            </div>
+            <span class="login">Want to sign up?</span>
+            <a href="{{ url_for('register') }}" class="register-button login-content" value="Register">Register</a>
+        </div>
+    </form>
+
+    <form action="{{ url_for('login') }}" method="post">
+        <button type="submit" class="log-button authBox centered" value="Login">
+            <div class="login-button">Login</div>
+        </button>
+    </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
