@@ -10,36 +10,34 @@
 </head>
 
 <body>
-    
-        <form class="authBox centered active" method="post" action="{{ url_for('register') }}" autocomplete="off">
-            <div class="authBox-wrapper">
-                <div class="register-title">
-                    <center>Welcome!</center>
-                </div>
-                <div class="login-block">
-                    <h5 class="login-block-text">USERNAME</h5>
-                    <div class=input-wrapper">
-                        <input class="log" type="text" name="username" placeholder="" id="username" required>
-                    </div>
-                </div>
-                <div>
-                    <h5 class="login-block-text">PASSWORD</h5>
-                    <div class=input-wrapper">
-                        <input class="log" type="password" name="password" placeholder="" id="password" required>
-                    </div>
-                </div>
-                <div>
-                    <h5 class="login-block-text">EMAIL</h5>
-                    <div class=input-wrapper">
-                        <input class="log" type="email" name="email" placeholder="" id="email" required>
-                    </div>
-                </div>
-                <span class="register">Already have an account?</span>
-                <a href="{{ url_for('login') }}" class="register-button login-content" value="Login">Login</a>
+
+    <form class="authBox centered active" method="post" action="{{ url_for('register') }}" autocomplete="off">
+        <div class="authBox-wrapper">
+            <div class="register-title">
+                <center>Welcome!</center>
             </div>
-        </form>
-   
-    <form method="post" action="{{ url_for('register') }}" autocomplete="off">
+            <div class="login-block">
+                <h5 class="login-block-text">USERNAME</h5>
+                <div class=input-wrapper">
+                    <input class="log" type="text" name="username" placeholder="" id="username" required>
+                </div>
+            </div>
+            <div>
+                <h5 class="login-block-text">PASSWORD</h5>
+                <div class=input-wrapper">
+                    <input class="log" type="password" name="password" placeholder="" id="password" required>
+                </div>
+            </div>
+            <div>
+                <h5 class="login-block-text">EMAIL</h5>
+                <div class=input-wrapper">
+                    <input class="log" type="email" name="email" placeholder="" id="email" required>
+                </div>
+            </div>
+            <span class="register">Already have an account?</span>
+            <a href="{{ url_for('login') }}" class="register-button login-content" value="Login">Login</a>
+        </div>
+
         <button type="submit" class="log-button authBox centered" value="Register">
             <div class="login-button">Register</div>
         </button>

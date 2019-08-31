@@ -16,7 +16,7 @@ app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'cena'
+app.config['MYSQL_PASSWORD'] = 'Kaseygirl_72'
 app.config['MYSQL_DB'] = 'userslogin'
 
 mysql = MySQL(app)
@@ -43,6 +43,8 @@ def login():
         else:
             print('Incorrect username/password')
             msg = 'Incorrect username/password!'
+    else:
+        print('not working. fix now.')
 
     return render_template('login.html', msg=msg)
 
@@ -68,7 +70,7 @@ def register():
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute(
-            'SELECT * FROM accounts WHERE username = %s', (username))
+            'SELECT * FROM accounts WHERE username = %s', [username])
         account = cursor.fetchone()
 
         if account:
@@ -88,7 +90,7 @@ def register():
             # return redirect(url_for('home'))
 
     elif request.method == 'POST':
-        print('2')
+        print('not registering. something is wrong.')
         msg = 'Please fill out the form!'
 
     return render_template('register.html', msg=msg)

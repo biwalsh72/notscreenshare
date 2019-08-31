@@ -88,7 +88,7 @@ textarea {
     color: rgb(206, 205, 205);
 }
 
-.register-block-text {
+.login-block-text {
     margin-bottom: .5rem;
     color: rgb(207, 207, 207);
 }
@@ -111,7 +111,7 @@ textarea {
     background: #432d52;
     color: rgb(235, 235, 235);
     padding: 1rem;
-    transform: translate(-14rem, 8.8rem);
+    transform: translate(-14rem, 12.8rem);
 }
 
 .register-button {

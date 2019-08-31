@@ -31,10 +31,8 @@
             <span class="login">Want to sign up?</span>
             <a href="{{ url_for('register') }}" class="register-button login-content" value="Register">Register</a>
         </div>
-    </form>
 
-    <form action="{{ url_for('login') }}" method="post">
-        <button type="submit" class="log-button authBox centered" value="Login">
+        <button type="submit" class="log-button authBox centered" value="Login" name="Login">
             <div class="login-button">Login</div>
         </button>
     </form>
