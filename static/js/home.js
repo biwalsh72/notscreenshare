@@ -1,13 +1,10 @@
+
+
 $(function () {
 	// You can add Users inside JSON users section
 	var _json = {
 		users: ["Grain"],
-		chats: [{
-			from: 'Grain',
-			msg: 'AHAHAHAHA ahahaha bitch.',
-			time: '1533263925814',
-			action: ''
-		}]
+		chats: []
 	};
 
 	init();

@@ -11,7 +11,7 @@
 
 <body>
 
-    <form class="authBox centered active" method="post" action="{{ url_for('login') }}">
+    <form class="authBox centered active" method="post" action="{{ url_for('login', next=request.endpoint) }} ">
         <div class="authBox-wrapper">
             <div class="login-title">
                 <center>Welcome!</center>
