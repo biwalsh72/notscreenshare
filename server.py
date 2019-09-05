@@ -34,6 +34,10 @@ def redirect_dest(fallback):
         return redirect(fallback)
     return redirect(dest_url)
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -52,15 +56,15 @@ def login():
             session['loggedin'] = True
             session['id'] = account['id']
             session['username'] = account['username']
-            return redirect(url_for('home'))
+            return redirect(url_for('room', name = session['username']))
         else:
             print('Incorrect username/password')
             msg = 'Incorrect username/password!'
-    else:
-        print('not working. fix now.')
+    #else:
+    #    print('not working. fix now.')
 
     if 'loggedin' in session:
-        return redirect_dest(fallback=url_for('home'))
+        return redirect_dest(fallback=url_for('room', name=session['username']))
     else:
         return render_template("login.html", msg=msg)
 
@@ -105,7 +109,7 @@ def register():
             mysql.connection.commit()
             print('Successfully registered')
             msg = 'Successfully registered.'
-            return redirect(url_for('home'))
+            return redirect(url_for('room', name = username))
 
     elif request.method == 'POST':
         print('not registering. something is wrong.')
@@ -114,12 +118,12 @@ def register():
     return render_template('register.html', msg=msg)
 
 
-@app.route('/home', methods=["GET", "POST"])
-def home():
+@app.route('/room/<name>', methods=["GET", "POST"])
+def room(name):
     # Check if user is loggedin
-    if 'loggedin' in session:
+    if 'loggedin' in session and request.method == "GET":
         # User is loggedin show them the home page
-        return render_template('home.html', username=session['username'])
+        return render_template('home.html', name=session['username'])
 
     if request.method == "POST":
         channel = request.form.get("channel_name")

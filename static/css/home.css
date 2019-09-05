@@ -410,3 +410,7 @@ ul.chat-tabs li a {
     font-family: 'Open Sans', sans-serif;
     text-decoration: none;
 }
+
+.username {
+    display:none;
+}

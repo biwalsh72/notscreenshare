@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Screen Sharing</title>
+    <title>{{ name }}'s Room</title>
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width = device-width, user-scalable=no" />
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -25,6 +25,8 @@
             <div class="col" id="add-media">Add Media</div>
         </div>
     </div>
+
+    <div class = "username" id = "mydiv" data-name = '{{ name }}'></div>
 
     <!-- <div class="row">
         <div class="col s12">
