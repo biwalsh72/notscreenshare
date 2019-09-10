@@ -1,9 +1,8 @@
 $(function () {
 	// You can add Users inside JSON users section
-var name = JSON.parse($("#mydiv").data("name"));
 
 	var _json = {
-		users: ["Grain"],
+		users: [name],
 		chats: []
 	};
 

@@ -1,6 +1,6 @@
 import sys, os
 import pyautogui
-from flask import Flask, render_template, Response, request, redirect, url_for, session, jsonify, make_response
+from flask import Flask, render_template, Response, request, redirect, url_for, session, jsonify, make_response, escape
 from flask_mysqldb import MySQL
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from camera_desktop import Camera
@@ -19,8 +19,8 @@ channel_list = {"channels": []}
 present_channel = {"initial": "general"}
 
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Kaseygirl_72'
+app.config['MYSQL_USER'] = 'useraccount'
+app.config['MYSQL_PASSWORD'] = '2%u/q}(zg.Y(D*6%'
 app.config['MYSQL_DB'] = 'userslogin'
 
 mysql = MySQL(app)
@@ -44,8 +44,8 @@ def login():
     msg = ''
 
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        username = request.form['username']
-        password = request.form['password']
+        username = escape(request.form['username'])
+        password = escape(request.form['password'])
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute(
@@ -86,9 +86,9 @@ def register():
     msg = ''
 
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
-        username = request.form['username']
-        password = request.form['password']
-        email = request.form['email']
+        username = escape(request.form['username'])
+        password = escape(request.form['password'])
+        email = escape(request.form['email'])
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute(
