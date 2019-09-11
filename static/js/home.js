@@ -84,7 +84,10 @@ $(function () {
 		(day.length < 2) ? day = '0' + day: '';
 		(hour.length < 2) ? hour = '0' + hour: '';
 		(min.length < 2) ? min = '0' + min: '';
-		var res = '' + month + ' ' + day + ' ' + hour + ':' + min;
+		var ampm = hour >= 12 ? 'PM' : 'AM';
+		hour = hour % 12;
+		hour = hour ? hour : 12;
+		var res = '' + month + ' ' + day + ' ' + ' at ' + hour + ':' + min + ' ' + ampm;
 		return res;
 	}
 

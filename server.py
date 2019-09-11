@@ -18,7 +18,7 @@ socketio = SocketIO(app)
 channel_list = {"channels": []}
 present_channel = {"initial": "general"}
 
-app.config['MYSQL_HOST'] = '72.185.252.16'
+app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'useraccount'
 app.config['MYSQL_PASSWORD'] = '2%u/q}(zg.Y(D*6%'
 app.config['MYSQL_DB'] = 'userslogin'
