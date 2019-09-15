@@ -15,8 +15,15 @@
             <div class="col" id="queue">Queue</div>
             <div class="col" id="room-chat">
                 <ul class = "chat-tabs">
-                    <li class = "chat-tab-entry"><a class = "active-tab" href = "#/general">general</a></li>
+                    <li class = "chat-tab-entry"><a class = "active-tab">general</a></li>
                 </ul>
+                <div class="chatbox" id="' + userID + '">
+                    <div class="chats">
+                        <ul></ul>
+                    </div>
+                    <div class="sendBox">
+                        <input type="text" placeholder="Type here... ">
+                    </div>
             </div>
             <div class="col" id="friends-list">Friends List</div>
         </div>
@@ -35,7 +42,9 @@
     </div> -->
 
     <script>var name = {{ name|tojson }};</script>
-    <script> var scale = Math.min(availableWidth / contentWidth, availableHeight / contentHeight);</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script type="text/javascript" charset="utf-8">var socket = io();</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

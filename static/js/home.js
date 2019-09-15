@@ -1,3 +1,38 @@
+var socket = io.connect('http://' + document.domain + ':' + location.port + '/room/' + name);
+
+socket.on('connect', () => {
+	console.log('holy shit i connect.');
+});
+
+socket.on('send message', function(name) {
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 $(function () {
 	// You can add Users inside JSON users section
 
@@ -126,6 +161,7 @@ $(function () {
 		$('#room-chat .chats ul>li.pending').remove();
 	});
 });
+*/
 
 
 function get_xy(event, offset) {

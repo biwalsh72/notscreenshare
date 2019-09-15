@@ -1,6 +1,7 @@
 import sys, os
 import pyautogui
 from flask import Flask, render_template, Response, request, redirect, url_for, session, jsonify, make_response, escape
+from flask_login import LoginManager, login_user, login_required, current_user
 from flask_mysqldb import MySQL
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from camera_desktop import Camera
@@ -14,6 +15,7 @@ import json
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(24)
 socketio = SocketIO(app)
+login = LoginManager(app)
 
 channel_list = {"channels": []}
 present_channel = {"initial": "general"}
@@ -46,6 +48,7 @@ def login():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = escape(request.form['username'])
         password = escape(request.form['password'])
+        remember = True #for now add option later
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute(
@@ -56,7 +59,7 @@ def login():
             session['loggedin'] = True
             session['id'] = account['id']
             session['username'] = account['username']
-            return redirect(url_for('room', name = session['username']))
+            return redirect_dest(fallback=url_for('room', name = session['username']))
         else:
             print('Incorrect username/password')
             msg = 'Incorrect username/password!'
@@ -231,4 +234,5 @@ def keyboard_event():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', threaded=True, debug=True)
+    #app.run(host='0.0.0.0', threaded=True, debug=True)
+    socketio.run(app, debug=True)
