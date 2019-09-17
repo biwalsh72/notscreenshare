@@ -3,7 +3,7 @@ import pyautogui
 from flask import Flask, render_template, Response, request, redirect, url_for, session, jsonify, make_response, escape
 from flask_login import LoginManager, login_user, login_required, current_user
 from flask_mysqldb import MySQL
-from flask_socketio import SocketIO, emit, join_room, leave_room
+from flask_socketio import SocketIO, emit, join_room, leave_room, Namespace
 from camera_desktop import Camera
 from app import routes
 import MySQLdb.cursors
@@ -15,7 +15,7 @@ import json
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(24)
 socketio = SocketIO(app)
-login = LoginManager(app)
+# login = LoginManager(app)
 
 channel_list = {"channels": []}
 present_channel = {"initial": "general"}
@@ -40,6 +40,9 @@ def redirect_dest(fallback):
 def index():
     return render_template('index.html')
 
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -59,7 +62,7 @@ def login():
             session['loggedin'] = True
             session['id'] = account['id']
             session['username'] = account['username']
-            return redirect_dest(fallback=url_for('room', name = session['username']))
+            return redirect_dest(fallback=url_for('room', current_username = session['username']))
         else:
             print('Incorrect username/password')
             msg = 'Incorrect username/password!'
@@ -67,7 +70,7 @@ def login():
     #    print('not working. fix now.')
 
     if 'loggedin' in session:
-        return redirect_dest(fallback=url_for('room', name=session['username']))
+        return redirect_dest(fallback=url_for('room', current_username=session['username']))
     else:
         return render_template("login.html", msg=msg)
 
@@ -112,7 +115,7 @@ def register():
             mysql.connection.commit()
             print('Successfully registered')
             msg = 'Successfully registered.'
-            return redirect(url_for('room', name = username))
+            return redirect(url_for('room', current_username = username))
 
     elif request.method == 'POST':
         print('not registering. something is wrong.')
@@ -121,69 +124,103 @@ def register():
     return render_template('register.html', msg=msg)
 
 
-@app.route('/room/<name>', methods=["GET", "POST"])
-def room(name):
+@app.route('/room/<current_username>', methods=["GET", "POST"])
+def room(current_username):
     # Check if user is loggedin
     if 'loggedin' in session and request.method == "GET":
         # User is loggedin show them the home page
-        return render_template('home.html', name=session['username'])
-
-    if request.method == "POST":
-        channel = request.form.get("channel_name")
-        user = request.form.get("username")
-
-        if channel and (channel not in channel_list):
-            channel_list[channel] = []
-            return jsonify({"success": True})
-        elif channel in channel_list:
-            present_channel[user] = channel
-            channel_data = channel_list[present_channel[user]]
-            return jsonify(channel_data)
-        else:
-            return jsonify({"success": False})
+        return render_template('home.html', current_username=session['username'])
 
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
+@socketio.on('connect')
+def test_connect():
+    emit('my response', {'data': 'Connected', 'count': 0})
 
-@socketio.on("create channel")
-def create_channel(new_channel):
-    emit("new channel", new_channel, broadcast=True)
-
-@socketio.on("send message")
-def send_message(message_data):
-    channel = message_data["current_channel"]
-    channel_message_count = len(channel_list[channel])
-    del message_data["current_channel"]
-    channel_list[channel].append(message_data)
-    message_data["deleted_message"] = False
-    if (channel_message_count >= 1000):
-        del channel_list[channel][0]
-        message_data["deleted_message"] = True
-    emit("recieve message", message_data, broadcast = True, room=channel)
-
-@socketio.on("delete channel")
-def delete_channel(message_data):
-    channel = message_data["current_channel"]
-    user = message_data["user"]
-    present_channel[user] = "general"
-    del message_data["current_channel"]
-    del channel_list[channel]
-    channel_list["general"].append(message_data)
-    message_data = {"data": channel_list["general"], "deleted_channel": channel}
-    emit("channel deletion", message_data, broadcast=True)
+@socketio.on('message')
+def chat_message(message):
+    emit('message', {'data': message['data']}, broadcast = True)
 
 @socketio.on("leave")
 def on_leave(room_to_leave):
-    print('leaving room')
+    print("leaving room.")
     leave_room(room_to_leave)
-    emit("leave channel", room=room_to_leave)
+    emit("leaving channel", room=room_to_leave)
 
 @socketio.on("join")
 def on_join(room_to_join):
-    print("joining room")
+    print('joining room.')
     join_room(room_to_join)
-    emit("join channel", room=room_to_join)
+    emit("joined channel", room=room_to_join)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @socketio.on('connect', namespace='/room/' + current_username)
+# def test_connect():
+#     emit('my response', {'data': 'Connected', 'count': 0})
+
+
+
+
+
+
+
+
+
+
+# @socketio.on("create channel")
+# def create_channel(new_channel):
+#     emit("new channel", new_channel, broadcast=True)
+
+
+
+
+
+# @socketio.on("send message")
+# def send_message(message_data):
+#     channel = message_data["current_channel"]
+#     channel_message_count = len(channel_list[channel])
+#     del message_data["current_channel"]
+#     channel_list[channel].append(message_data)
+#     message_data["deleted_message"] = False
+#     if (channel_message_count >= 1000):
+#         del channel_list[channel][0]
+#         message_data["deleted_message"] = True
+#     emit("recieve message", message_data, broadcast = True, room=channel)
+
+# @socketio.on("delete channel")
+# def delete_channel(message_data):
+#     channel = message_data["current_channel"]
+#     user = message_data["user"]
+#     present_channel[user] = "general"
+#     del message_data["current_channel"]
+#     del channel_list[channel]
+#     channel_list["general"].append(message_data)
+#     message_data = {"data": channel_list["general"], "deleted_channel": channel}
+#     emit("channel deletion", message_data, broadcast=True)
+
+# @socketio.on("leave")
+# def on_leave(room_to_leave):
+#     print('leaving room')
+#     leave_room(room_to_leave)
+#     emit("leave channel", room=room_to_leave)
 
 
 def gen(camera):

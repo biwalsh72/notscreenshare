@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>{{ name }}'s Room</title>
+    <title>{{ current_username }}'s Room</title>
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width = device-width, user-scalable=no" />
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -12,7 +12,8 @@
 <body class="loggedin">
     <div class="container">
         <div class="row flex-nowrap">
-            <div class="col" id="queue">Queue</div>
+            <div class="col" id="queue">Queue
+            </div>
             <div class="col" id="room-chat">
                 <ul class = "chat-tabs">
                     <li class = "chat-tab-entry"><a class = "active-tab">general</a></li>
@@ -28,7 +29,11 @@
             <div class="col" id="friends-list">Friends List</div>
         </div>
         <div class="row flex-nowrap">
-            <div class="col" id="current-media">Current Media</div>
+            <div class="col" id="current-media">Current Media
+                <div class = "link-search">
+                    <input type="text" class="link-search-bar" placeholder="Enter URL here...">
+                </div>
+            </div>
             <div class="col" id="add-media">Add Media</div>
         </div>
     </div>
@@ -41,7 +46,7 @@
         </div>
     </div> -->
 
-    <script>var name = {{ name|tojson }};</script>
+    <script>var current_username = {{ current_username|tojson }};</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <script type="text/javascript" charset="utf-8">var socket = io();</script>

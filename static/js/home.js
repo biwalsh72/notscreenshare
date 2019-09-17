@@ -1,12 +1,93 @@
-var socket = io.connect('http://' + document.domain + ':' + location.port + '/room/' + name);
+var channel = '/'
+var socket = io.connect('http://' + document.domain + ':' + location.port + channel); //+ channel);
 
-socket.on('connect', () => {
-	console.log('holy shit i connect.');
+
+
+socket.on('connect', function (room) {
+	socket.emit('join', {data: "I\'ve connected"});
 });
 
-socket.on('send message', function(name) {
+socket.on("message", function (message) {
+	refreshMessages(message);
+});
+
+socket.on('disconnect', () => {
 
 });
+
+/*
+when you log in, your current username is sent to the html as the client that is currently connected
+
+*/
+
+
+function refreshMessages(message) {
+	if (message.data.author != current_username) {
+		$('#room-chat .chatbox .chats ul')
+				.append('<li><div class="msg ' + 'them' + '">' +
+					'<span class="partner">' + message.data.author + '</span>' +
+					message.data.message +
+					'<span class="time">' + message.data.time + '</span>' +
+					'</div>' +
+					'</li>');
+	}
+	else {
+	$('#room-chat .chatbox .chats ul')
+				.append('<li><div class="msg ' + 'you' + '">' +
+					'<span class="partner">' + message.data.author + '</span>' +
+					message.data.message +
+					'<span class="time">' + message.data.time + '</span>' +
+					'</div>' +
+					'</li>');
+	}
+};
+
+//if the message that just got emitted is not the current_username, then add msg> them instead of msg > you
+
+$(function() {
+	$('#room-chat .sendBox>input').keypress(function (e) {
+		if (e.keyCode == 13) {
+			console.log('enter key worked.');
+			sendMessage();
+		}
+	})
+
+	function sendMessage() {
+		if ($('#room-chat .sendBox>input').val() == "") {
+			$('#room-chat .chats ul>li.pending').remove();
+		}
+		else {
+		var _now = $.now();
+		$container = $('.chatbox');
+		$container[0].scrollTop = $container[0].scrollHeight;
+		var message = $('#room-chat .sendBox>input').val();
+		var sender = current_username;
+		socket.emit("message", {data: { message: message, author: sender , time: getDateTime(_now)}});
+		$('#room-chat .sendBox>input').val("");
+		$container.animate({ scrollTop: $container[0].scrollHeight }, "slow");
+		}
+	}
+});
+
+
+function getDateTime() {
+	var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	var d = new Date() //t/1000),
+	month = (month[d.getMonth()]),
+		day = d.getDate().toString(),
+		hour = d.getHours().toString(),
+		min = d.getMinutes().toString();
+	(day.length < 2) ? day = '0' + day: '';
+	(hour.length < 2) ? hour = '0' + hour: '';
+	(min.length < 2) ? min = '0' + min: '';
+	var ampm = hour >= 12 ? 'PM' : 'AM';
+	hour = hour % 12;
+	hour = hour ? hour : 12;
+	var res = '' + month + ' ' + day + ' ' + ' at ' + hour + ':' + min + ' ' + ampm;
+	return res;
+}
+
+
 
 
 

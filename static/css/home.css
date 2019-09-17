@@ -88,7 +88,7 @@ body {
 #room-chat {
     position: fixed;
     bottom: 0;
-    height: 80%;
+    height: 85%;
     width: 52%;
     margin: 0 !important;
     padding: 0;
@@ -181,7 +181,6 @@ ul>li:hover {
 
 .msg.them {
     float: left;
-    background-color: #535353;
     color: rgb(236, 234, 240);
     border-bottom-left-radius: 0.125rem;
 }
@@ -229,7 +228,7 @@ ul>li:hover {
     font-size: .7rem;
 }
 
-.msg.him>span {
+.msg.them>span {
     left: 0;
 }
 
@@ -266,7 +265,7 @@ input:hover,
 input:focus,
 input:active {
     outline: none !important;
-    border-top: 0.125rem solid rgb(206, 199, 214);
+    /*border-top: 0.125rem solid rgb(206, 199, 214);*/
     /*color: white;*/
 }
 
@@ -335,7 +334,8 @@ input::placeholder {
     position: fixed;
     left: 25%;
     width: 52%;
-    height: 20%;
+    height: 15%;
+    max-height: 20%;
     padding: 0;
     margin: 0 !important;
 }
@@ -434,4 +434,41 @@ ul.chat-tabs li a {
 
 .username {
     display:none;
+}
+
+.link-search {
+    border: none !important;
+    background-color: #404040;
+    padding: 0;
+    margin: 0;
+    font-size: 2rem;
+    border-radius: 1.5px;
+}
+
+.link-search-bar {
+    border: none !important;
+    padding: 0;
+    margin: 0;
+}
+
+.link-search-bar::placeholder {
+    font-size: 24px;
+    padding-left: .5rem;
+    position: absolute;
+    padding-bottom: 1%;
+}
+
+.link-search-bar:focus {
+    border: none !important;
+    outline: none !important;
+}
+
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+    border-bottom: none !important;
 }
