@@ -1,10 +1,8 @@
 var channel = '/'
 var socket = io.connect('http://' + document.domain + ':' + location.port + channel); //+ channel);
 
-
-
 socket.on('connect', function (room) {
-	socket.emit('join', {data: "I\'ve connected"});
+	socket.emit('join', {'data': current_username});
 });
 
 socket.on("message", function (message) {
@@ -47,7 +45,6 @@ function refreshMessages(message) {
 $(function() {
 	$('#room-chat .sendBox>input').keypress(function (e) {
 		if (e.keyCode == 13) {
-			console.log('enter key worked.');
 			sendMessage();
 		}
 	})

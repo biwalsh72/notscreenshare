@@ -140,87 +140,9 @@ def test_connect():
 
 @socketio.on('message')
 def chat_message(message):
-    emit('message', {'data': message['data']}, broadcast = True)
-
-@socketio.on("leave")
-def on_leave(room_to_leave):
-    print("leaving room.")
-    leave_room(room_to_leave)
-    emit("leaving channel", room=room_to_leave)
-
-@socketio.on("join")
-def on_join(room_to_join):
-    print('joining room.')
-    join_room(room_to_join)
-    emit("joined channel", room=room_to_join)
+    emit('message', {'data': message['data']}, broadcast=True)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# @socketio.on('connect', namespace='/room/' + current_username)
-# def test_connect():
-#     emit('my response', {'data': 'Connected', 'count': 0})
-
-
-
-
-
-
-
-
-
-
-# @socketio.on("create channel")
-# def create_channel(new_channel):
-#     emit("new channel", new_channel, broadcast=True)
-
-
-
-
-
-# @socketio.on("send message")
-# def send_message(message_data):
-#     channel = message_data["current_channel"]
-#     channel_message_count = len(channel_list[channel])
-#     del message_data["current_channel"]
-#     channel_list[channel].append(message_data)
-#     message_data["deleted_message"] = False
-#     if (channel_message_count >= 1000):
-#         del channel_list[channel][0]
-#         message_data["deleted_message"] = True
-#     emit("recieve message", message_data, broadcast = True, room=channel)
-
-# @socketio.on("delete channel")
-# def delete_channel(message_data):
-#     channel = message_data["current_channel"]
-#     user = message_data["user"]
-#     present_channel[user] = "general"
-#     del message_data["current_channel"]
-#     del channel_list[channel]
-#     channel_list["general"].append(message_data)
-#     message_data = {"data": channel_list["general"], "deleted_channel": channel}
-#     emit("channel deletion", message_data, broadcast=True)
-
-# @socketio.on("leave")
-# def on_leave(room_to_leave):
-#     print('leaving room')
-#     leave_room(room_to_leave)
-#     emit("leave channel", room=room_to_leave)
 
 
 def gen(camera):
